@@ -1,0 +1,11 @@
+BOL_TAG = "BOL_TAG"
+EOL_TAG = "EOL_TAG"
+UNKNOWN_WORD = "UNKNOWN_WORD"
+TRAIN = 1
+DEV = 2
+TRAIN_DEV = 3
+TEST = 4
+MODEL_TAGS= "tags"
+MODEL_VOCAB = "vocab"
+MODEL_EMISSION_PROBS = "emission_probs"
+MODEL_TRANSITION_PROBS = "transition_probs"
