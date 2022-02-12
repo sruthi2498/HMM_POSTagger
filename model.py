@@ -1,3 +1,4 @@
+
 import constants
 import json
 import math
@@ -13,13 +14,21 @@ class Model:
             self.__fetchModel()
 
     def __laplace(self,c1, c2,V):
-        lamb = 0.001
+        lamb = 0.005
         return (c1+lamb)/(c2 + (lamb*V))
 
-    def extractOpenClassTags(self,tag_count):
+    def __extractTagVocabCount(self,word_tag_count):
+        tag_vocab = {tag:set() for tag in self.tags if tag!=constants.EOL_TAG and tag!=constants.BOL_TAG}
+        for word,tag in word_tag_count:
+            tag_vocab[tag].add(word)
+        return {tag:len(words) for tag,words in tag_vocab.items()}
+
+
+    def extractOpenClassTags(self,word_tag_count):
+        tag_vocab_count = self.__extractTagVocabCount(word_tag_count)
         total = 0
         maxCount = 0
-        for tag,count in tag_count.items():
+        for tag,count in tag_vocab_count.items():
             if tag!=constants.BOL_TAG and tag!=constants.EOL_TAG:
                 total+=count
                 if count > maxCount:
@@ -29,13 +38,13 @@ class Model:
         self.open_class_tags = []
         while perc and not self.open_class_tags:
             print("threshold = ",threshold)
-            self.__extractHighCountTags(tag_count,threshold)
+            self.__extractHighCountTags(tag_vocab_count,threshold)
             perc-=0.005
             threshold = perc * total
 
-    def __extractHighCountTags(self,tag_count, threshold):
+    def __extractHighCountTags(self,tag_vocab_count, threshold):
         self.open_class_tags = []
-        for tag,count in tag_count.items():
+        for tag,count in tag_vocab_count.items():
             # print(tag,count)
             if tag!=constants.BOL_TAG and tag!=constants.EOL_TAG and count>threshold:
                 self.open_class_tags.append(tag)
@@ -43,7 +52,7 @@ class Model:
     def calculateProbabilities(self,word_count,tag_count,word_tag_count,prevtag_tag_count):
         self.tags = list(tag_count.keys())
         self.vocab = list(word_count.keys())
-        totalTags = len(self.tags)
+        totalTags = len(self.tags) 
         
         for tag in self.tags:
             self.emission_probs[tag] = {w : 0 for w in self.vocab}
@@ -75,7 +84,7 @@ class Model:
 
         # for tag in self.tags:
         #     print(tag,self.emission_probs[tag][constants.UNKNOWN_WORD])
-        self.extractOpenClassTags(tag_count)
+        self.extractOpenClassTags(word_tag_count)
         print("Tags : ",len(self.tags),"OpenClass Tags : ",len(self.open_class_tags), "Vocab : ",len(self.vocab))
 
 
