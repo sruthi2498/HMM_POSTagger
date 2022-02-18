@@ -110,7 +110,7 @@ Da/E una/PI ,/FF Luigi/SP sorride/V con/E i/RD due/N bambini/S Castiglioni/SP ,/
 A/E i/RD balconi/S si/PC affacciano/V donne/S anziane/A ,/FF pensionati/S e/CC parlano/V ad/E alta/A voce/S :/FC 
 Negozi/S e/CC servizi/S aperti/V per/E ferie/S ./FS 
 In/E periferia/S ,/FF calcola/V infatti/B l'/RD Osservatorio/SP di/E Milano/SP ,/FF va/V in/E ferie/S solo/B una/RI persona/S su/E due/N :/FC 
-Slot/DQ machine/S abusive/A in/E un/RI bar/S di/E piazza/S San/SP Giovanni/SP dove/B hanno/VA fatto/V irruzione/S gli/RD agenti/S di/E il/RD commissariato/S Esquilino/SP ./FS 
+Slot/S machine/S abusive/A in/E un/RI bar/S di/E piazza/S San/SP Giovanni/SP dove/B hanno/VA fatto/V irruzione/S gli/RD agenti/S di/E il/RD commissariato/S Esquilino/SP ./FS 
 "/FB È/VA finito/V in/E il/RD museo/S insieme/B ad/E altre/DI cose/S "/FB ,/FF ci/PC assicura/V il/RD colonnello/S Roland/SP Buchs/SP Binz/SP ,/FF il/RD trentesimo/NO comandante/S di/E il/RD Corpo/SP ./FS 
 In/E armeria/S ci/PC sono/V 300/N armature/S di/E le/RD quali/PR 50/N hanno/VA più/B di/E tre/N secoli/S ./FS 
 Le/RD buone/A cose/S di/E Herr/SP Meier/SP ./FS 
@@ -121,7 +121,7 @@ Il/RD suo/AP nome/S nasce/V ,/FF in/E maniera/S abbastanza/B singolare/A ,/FF da
 il/RD buon/A Rossi/SP in/E Italia/SP ,/FF il/RD buon/A Smith/SP in/E Inghilterra/SP ,/FF il/RD buon/A Dupont/SP in/E Francia/SP ./FS 
 e/CC a/E colonna/S è/V pure/B la/RD stufa/S di/E ceramica/S ,/FF con/E rilievi/S floreali/A ./FS 
 Questi/DD ultimi/NO hanno/V frequenti/A rivestimenti/S in/E reps/S rigato/A ./FS 
-Frequenti/PQ erano/V i/RD tavoli/S ovali/A e/CC ancor/B più/B le/RD scrivanie/S ,/FF specie/B per/E signora/S ,/FF complete/A di/E poggiapiedi/S imbottito/A ,/FF con/E un'/RI alzatina/S elicoidale/A con/E cassettini/S e/CC due/N colonne/S laterali/A che/PR potevano/VM contenere/V di/E le/RD piante/S ./FS 
+Frequenti/A erano/V i/RD tavoli/S ovali/A e/CC ancor/B più/B le/RD scrivanie/S ,/FF specie/B per/E signora/S ,/FF complete/A di/E poggiapiedi/S imbottito/A ,/FF con/E un'/RI alzatina/S elicoidale/A con/E cassettini/S e/CC due/N colonne/S laterali/A che/PR potevano/VM contenere/V di/E le/RD piante/S ./FS 
 la/RD stessa/A che/PR fa/V anche/B stendere/V su/E il/RD pavimento/S pelli/S di/E tigre/S ./FS 
 Il/RD mobiliere/S che/PR le/PC diede/V il/RD proprio/AP nome/S ,/FF chiamato/V a/E Vienna/SP da/E Metternich/SP per/E una/RI serie/S di/E lavori/S importanti/A ,/FF vi/PC giunse/V portando/V il/RD legno/S di/E faggio/S di/E la/RD Moravia/SP ./FS 
 a/E i/RD vetri/S di/E Boemia/SP e/CC di/E Moravia/SP ,/FF a/E le/RD porcellane/S di/E la/RD Manifattura/SP di/E Vienna/SP ,/FF a/E i/RD prodotti/S tessili/A (/FB da/E i/RD tappeti/S a/E i/RD campionari/S di/E stoffe/S di/E i/RD rappresentanti/S )/FB ,/FF a/E la/RD moda/S ./FS 
@@ -408,7 +408,7 @@ Una/RI persona/S così/B merita/V di/E essere/VA internato/V a/E vita/S e/CC get
 L'/RD associazione/S Creative/SP Commons/SP (/FB di/E seguito/S '/FB Creative/SP Commons/SP '/FB )/FB non/BN è/V uno/RI studio/S legale/A e/CC non/BN fornisce/V servizi/S di/E consulenza/S legale/A ./FS 
 L'/RD opera/S (/FB come/CS sotto/B definita/V )/FB è/VA messa/V a/E disposizione/S su/E la/RD base/S di/E i/RD termini/S di/E la/RD presente/A licenza/S "/FB Creative/SP Commons/SP Public/SP Licence/SP "/FB (/FB '/FB CCPL/SP '/FB o/CC '/FB licenza/S '/FB )/FB ./FS 
 Compensi/S per/E versioni/S cover/S ./FS 
-A/E il/RD fine/S di/E evitare/V dubbi/S ,/FF è/VA inteso/V che/CS il/RD Licenziante/SP rinuncia/V a/E il/RD diritto/S esclusivo/A di/E riscuotere/V i/RD compensi/S a/E lui/PE attribuiti/V da/E la/RD legge/S italiana/A su/E il/RD diritto/S d'/E autore/S (/FB ad/E es/S ./FF per/E l'/RD inserimento/S di/E l'/RD opera/S in/E un'/RI antologia/S ad/E uso/S scolastico/A ex/A art./S 70/N l./S 633/N //FB 1941/N )/FB ./FS 
+A/E il/RD fine/S di/E evitare/V dubbi/S ,/FF è/VA inteso/V che/CS il/RD Licenziante/SP rinuncia/V a/E il/RD diritto/S esclusivo/A di/E riscuotere/V i/RD compensi/S a/E lui/PE attribuiti/V da/E la/RD legge/S italiana/A su/E il/RD diritto/S d'/E autore/S (/FB ad/E es/S ./FF per/E l'/RD inserimento/S di/E l'/RD opera/S in/E un'/RI antologia/S ad/E uso/S scolastico/A ex/A art./S 70/N l./S 633/N //S 1941/N )/FB ./FS 
 Nessuna/DI clausola/S di/E questa/DD licenza/S esclude/V o/CC limita/V la/RD responsabilità/S in/E il/RD caso/S in/E cui/PR questa/PD dipenda/V da/E dolo/S o/CC colpa/S grave/A ./FS 
 Invece/B ,/FF i/RD cittadini/S di/E alcuni/DI nostri/AP paesi/S sono/VA stati/VA colpiti/V da/E catastrofi/S naturali/A di/E proporzioni/S davvero/B terribili/A ./FS 
 Avete/VA chiesto/V che/CS si/PC tenesse/V una/RI discussione/S su/E tale/DD tema/S in/E i/RD prossimi/A giorni/S ,/FF in/E il/RD corso/S di/E la/RD presente/A tornata/S ./FS 
