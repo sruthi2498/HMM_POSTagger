@@ -9,20 +9,21 @@ train_file = sys.argv[1]
 dev_file = sys.argv[2] if len(sys.argv) == 3 else None
 # bestLaplace = 0.002
 
-bestLaplace = 0.02
+bestLaplace1 = 0.5
+bestLaplace2 = 0.02
 
 dataUtil = datautil.DataUtil(train_file=train_file, dev_file=dev_file)
 
-# train_word_count, train_tag_count, train_word_tag_count, train_prevtag_tag_count = dataUtil.readTrainingData()
+train_word_count, train_tag_count, train_word_tag_count, train_prevtag_tag_count = dataUtil.readTrainingData()
 
-# hmmModel = model.Model(laplaceParam1=1, laplaceParam2=bestLaplace)
-# hmmModel.calculateProbabilities(
-#     train_word_count, train_tag_count, train_word_tag_count, train_prevtag_tag_count)
-# hmmModel.dumpModel()
-# if dev_file:
-#     lines = dataUtil.readDevData()
-#     predictedTags = hmmModel.predictPOSTags(constants.DEV, lines)
-#     acc = hmmModel.checkAccuracy(lines, predictedTags)
+hmmModel = model.Model(laplaceParam1=bestLaplace1, laplaceParam2=bestLaplace2)
+hmmModel.calculateProbabilities(
+    train_word_count, train_tag_count, train_word_tag_count, train_prevtag_tag_count)
+hmmModel.dumpModel()
+if dev_file:
+    lines = dataUtil.readDevData()
+    predictedTags = hmmModel.predictPOSTags(constants.DEV, lines)
+    acc = hmmModel.checkAccuracy(lines, predictedTags)
 
 
 # maxAcc = 0
@@ -48,7 +49,7 @@ dataUtil = datautil.DataUtil(train_file=train_file, dev_file=dev_file)
 train_word_count,train_tag_count,train_word_tag_count,train_prevtag_tag_count = dataUtil.readTrainAndDevData()
 # t2 = time.time()
 
-hmmModel = model.Model(laplaceParam2 = bestLaplace)
+hmmModel = model.Model(laplaceParam1=bestLaplace1, laplaceParam2=bestLaplace2)
 hmmModel.calculateProbabilities(train_word_count,train_tag_count,train_word_tag_count,train_prevtag_tag_count)
 # t3 = time.time()
 
