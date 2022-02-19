@@ -9,30 +9,31 @@ train_file = sys.argv[1]
 dev_file = sys.argv[2] if len(sys.argv) == 3 else None
 # bestLaplace = 0.002
 
-bestLaplace1 = 0.5
+bestLaplace1 = 0.9
 bestLaplace2 = 0.02
+bestLaplace3 = 0.5
 
 dataUtil = datautil.DataUtil(train_file=train_file, dev_file=dev_file)
 
-train_word_count, train_tag_count, train_word_tag_count, train_prevtag_tag_count = dataUtil.readTrainingData()
+# train_word_count, train_tag_count, train_word_tag_count, train_prevtag_tag_count = dataUtil.readTrainingData()
 
-hmmModel = model.Model(laplaceParam1=bestLaplace1, laplaceParam2=bestLaplace2)
-hmmModel.calculateProbabilities(
-    train_word_count, train_tag_count, train_word_tag_count, train_prevtag_tag_count)
-hmmModel.dumpModel()
-if dev_file:
-    lines = dataUtil.readDevData()
-    predictedTags = hmmModel.predictPOSTags(constants.DEV, lines)
-    acc = hmmModel.checkAccuracy(lines, predictedTags)
+# hmmModel = model.Model(laplaceParam1=bestLaplace1, laplaceParam2=bestLaplace2, laplaceParam3=bestLaplace3)
+# hmmModel.calculateProbabilities(
+#     train_word_count, train_tag_count, train_word_tag_count, train_prevtag_tag_count)
+# hmmModel.dumpModel()
+# if dev_file:
+#     lines = dataUtil.readDevData()
+#     predictedTags = hmmModel.predictPOSTags(constants.DEV, lines)
+#     acc = hmmModel.checkAccuracy(lines, predictedTags)
 
 
 # maxAcc = 0
 # bestLaplace1 = None
-# bestLaplace2 = None
-# for laplaceParam1 in np.arange(1,5,0.5):
-#     for laplaceParam2 in np.arange(0.02,1.01,0.2):
-#         print(laplaceParam1,laplaceParam2)
-#         hmmModel = model.Model(laplaceParam1=laplaceParam1,laplaceParam2=laplaceParam2)
+# bestLaplace2 = 0.02
+# bestLaplace3 = None
+# for laplaceParam1 in np.arange(0.1,1,0.2):
+#     for laplaceParam3 in np.arange(0.5,2.5,0.4):
+#         hmmModel = model.Model(laplaceParam1=laplaceParam1,laplaceParam2=bestLaplace2, laplaceParam3=laplaceParam3)
 #         hmmModel.calculateProbabilities(
 #             train_word_count, train_tag_count, train_word_tag_count, train_prevtag_tag_count)
 #         # hmmModel.dumpModel()
@@ -41,15 +42,15 @@ if dev_file:
 #         if acc>maxAcc:
 #             maxAcc = acc
 #             bestLaplace1 = laplaceParam1
-#             bestLaplace2 = laplaceParam2
-#             print("Best accuracy ",maxAcc,bestLaplace1,bestLaplace2)
-# print("Best accuracy ",maxAcc, bestLaplace1, bestLaplace2)
+#             bestLaplace3 = laplaceParam3
+#             print("Best accuracy ",maxAcc,bestLaplace1,bestLaplace3)
+# print("Best accuracy ",maxAcc, bestLaplace1, bestLaplace3)
 
 
 train_word_count,train_tag_count,train_word_tag_count,train_prevtag_tag_count = dataUtil.readTrainAndDevData()
 # t2 = time.time()
 
-hmmModel = model.Model(laplaceParam1=bestLaplace1, laplaceParam2=bestLaplace2)
+hmmModel = model.Model(laplaceParam1=bestLaplace1, laplaceParam2=bestLaplace2, laplaceParam3=bestLaplace3)
 hmmModel.calculateProbabilities(train_word_count,train_tag_count,train_word_tag_count,train_prevtag_tag_count)
 # t3 = time.time()
 

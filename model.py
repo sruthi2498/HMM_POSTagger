@@ -6,7 +6,7 @@ import math
 
 
 class Model:
-    def __init__(self, mode=constants.TRAIN, laplaceParam1 = 0.05, laplaceParam2 = 0.05):
+    def __init__(self, mode=constants.TRAIN, laplaceParam1 = 0.05, laplaceParam2 = 0.05, laplaceParam3 = 0.05):
         self.model_file = "hmmmodel.txt"
         self.tags = []
         self.vocab = []
@@ -14,12 +14,14 @@ class Model:
         self.transition_probs = {}
         self.laplace_param1 = laplaceParam1
         self.laplace_param2 = laplaceParam2
+        self.laplace_param3 = laplaceParam3
         self.tag_vocab_count = None
         if mode == constants.TEST:
             self.__fetchModel()
 
     def __laplace(self, c1, c2, V):
-        return (c1+self.laplace_param1)/(c2 + (self.laplace_param2*V))
+        num = (c1+self.laplace_param1) if c1 else self.laplace_param3
+        return num/(c2 + (self.laplace_param2*V))
 
     def __extractTagVocabCount(self, word_tag_count):
         tag_vocab = {tag: set() for tag in self.tags if tag !=
