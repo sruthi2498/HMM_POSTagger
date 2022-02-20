@@ -129,12 +129,19 @@ class Model:
         backpointer = {tag: [None for _ in range(T+1)] for tag in self.tags}
         word = self.__getWord(line[0])
 
+        openClassTagsCountFactor =  - math.log(len(self.open_class_tags)/len(self.tags))
+
         if word == constants.UNKNOWN_WORD:
             for tag in self.open_class_tags:
                 probabiities[tag][0] = math.log(
-                        self.transition_probs[constants.BOL_TAG][tag])
+                        self.transition_probs[constants.BOL_TAG][tag]) - math.log(self.open_class_tags[tag]/len(self.vocab)) + openClassTagsCountFactor
 
                 backpointer[tag][0] = constants.BOL_TAG
+
+            for tag in self.tags:
+                if tag not in self.open_class_tags and tag != constants.BOL_TAG and tag != constants.EOL_TAG:
+                    probabiities[tag][0] = math.log(self.transition_probs[constants.BOL_TAG][tag])
+                    backpointer[tag][0] = constants.BOL_TAG
         else:
             for tag in self.tags:
                 if self.emission_probs[tag][word] and self.transition_probs[constants.BOL_TAG][tag]  :
@@ -161,8 +168,26 @@ class Model:
                                 maxProb = prob
                                 maxPrevState = prev_tag
 
-                    probabiities[tag][t] = maxProb - math.log(self.open_class_tags[tag]/len(self.vocab))
+                    probabiities[tag][t] = maxProb - math.log(self.open_class_tags[tag]/len(self.vocab)) + openClassTagsCountFactor
                     backpointer[tag][t] = maxPrevState
+
+                for tag in self.tags:
+                    if tag not in self.open_class_tags and tag != constants.BOL_TAG and tag != constants.EOL_TAG:
+                        maxProb = -math.inf
+                        maxPrevState = None
+                        for prev_tag in self.tags:
+                            if  self.transition_probs[prev_tag][tag] and \
+                                    probabiities[prev_tag][t-1] != -math.inf :
+
+                                prob = probabiities[prev_tag][t-1] + math.log(self.transition_probs[prev_tag][tag]) 
+
+                                if prob > maxProb:
+                                    maxProb = prob
+                                    maxPrevState = prev_tag
+
+                        probabiities[tag][t] = maxProb
+                        backpointer[tag][t] = maxPrevState
+
             else:
                 for tag in self.tags:
                     if tag != constants.BOL_TAG and tag != constants.EOL_TAG:
