@@ -2,7 +2,7 @@ import constants
 import sys
 import datautil
 import model
-import numpy as np
+import time
 
 # t1 = time.time()
 train_file = sys.argv[1]

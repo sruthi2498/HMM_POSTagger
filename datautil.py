@@ -9,7 +9,7 @@ class DataUtil:
         self.test_file = test_file
 
     def __getFileLines(self, filename):
-        with open(filename) as f:
+        with open(filename,encoding='utf8') as f:
             lines = f.readlines()
             lines = [l.replace("\n", "").replace("\r", "").strip()
                      for l in lines]
@@ -128,5 +128,5 @@ class DataUtil:
                 sentence += " "
             sentence += "\n"
             result += sentence
-        with open(self.output_file, "w") as f:
+        with open(self.output_file, "w",encoding='utf8') as f:
             f.write(result)

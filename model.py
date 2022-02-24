@@ -1,5 +1,3 @@
-
-from collections import Counter
 import constants
 import json
 import math
@@ -60,26 +58,12 @@ class Model:
             self.emission_probs[tag] = {w: 0 for w in self.vocab}
             self.transition_probs[tag] = {t2: 0 for t2 in self.tags}
 
-        # print("Calculating probabilities")
-        # for word_tag, count in word_tag_count.items():
-        #     word, tag = word_tag
-        #     # P(word|tag) = c(word,tag)/c(tag)
-        #     #emission_probs[tag][word] = P(word|tag)
-        #     self.emission_probs[tag][word] = self.__laplace(
-        #         count, tag_count[tag], totalTags)
-
         for tag in self.tags:
             for word in self.vocab:
                 if word!=constants.UNKNOWN_WORD and (word,tag)  in word_tag_count:
                     # self.emission_probs[tag][word] = self.__laplace(word_tag_count[(word,tag)], tag_count[tag], totalTags)
                     self.emission_probs[tag][word] = word_tag_count[(word,tag)] /tag_count[tag]
 
-        # for tags, count in prevtag_tag_count.items():
-        #     prev_tag, tag = tags
-        #     # P(tag|prev_tag) = c(prev_tag,tag)/c(prev_tag)
-        #     #transition_probs[prev_tag][tag] = P(tag|prev_tag)
-        #     self.transition_probs[prev_tag][tag] = self.__laplace(
-        #         count, tag_count[prev_tag], totalTags)
 
         for prev_tag in self.tags:
             for tag in self.tags:
@@ -89,6 +73,7 @@ class Model:
                     
 
         self.extractOpenClassTags(word_tag_count)
+        self.open_class_tags_factor = - math.log(len(self.open_class_tags)/len(self.tags))
 
     def dumpModel(self):
         #print("Dumping model to ", self.model_file)
@@ -99,7 +84,7 @@ class Model:
             constants.MODEL_TRANSITION_PROBS: self.transition_probs,
             constants.MODEL_OPEN_CLASS_TAGS: self.open_class_tags
         }
-        with open(self.model_file, 'w') as f:
+        with open(self.model_file, 'w',encoding='utf8') as f:
             json.dump(model, f)
 
     def __fetchModel(self):
@@ -111,6 +96,7 @@ class Model:
             self.emission_probs = model[constants.MODEL_EMISSION_PROBS]
             self.transition_probs = model[constants.MODEL_TRANSITION_PROBS]
             self.open_class_tags = model[constants.MODEL_OPEN_CLASS_TAGS]
+            self.open_class_tags_factor = - math.log(len(self.open_class_tags)/len(self.tags))
             #print("Tags : ", len(self.tags), "OpenClass Tags : ", len(self.open_class_tags), "Vocab : ", len(self.vocab))
 
     def __getWord(self, word):
@@ -125,16 +111,14 @@ class Model:
     def __performViterbi(self, line):
         T = len(line)
         probabiities = {
-            tag: [-math.inf for _ in range(T+1)] for tag in self.tags}
-        backpointer = {tag: [None for _ in range(T+1)] for tag in self.tags}
+            tag: [-math.inf for _ in range(T)] for tag in self.tags}
+        backpointer = {tag: [None for _ in range(T)] for tag in self.tags}
         word = self.__getWord(line[0])
-
-        openClassTagsCountFactor =  - math.log(len(self.open_class_tags)/len(self.tags))
 
         if word == constants.UNKNOWN_WORD:
             for tag in self.open_class_tags:
                 probabiities[tag][0] = math.log(
-                        self.transition_probs[constants.BOL_TAG][tag]) - math.log(self.open_class_tags[tag]/len(self.vocab)) + openClassTagsCountFactor
+                        self.transition_probs[constants.BOL_TAG][tag]) - math.log(self.open_class_tags[tag]/len(self.vocab)) + self.open_class_tags_factor 
 
                 backpointer[tag][0] = constants.BOL_TAG
 
@@ -168,7 +152,7 @@ class Model:
                                 maxProb = prob
                                 maxPrevState = prev_tag
 
-                    probabiities[tag][t] = maxProb - math.log(self.open_class_tags[tag]/len(self.vocab)) + openClassTagsCountFactor
+                    probabiities[tag][t] = maxProb - math.log(self.open_class_tags[tag]/len(self.vocab)) + self.open_class_tags_factor
                     backpointer[tag][t] = maxPrevState
 
                 for tag in self.tags:
@@ -258,6 +242,7 @@ class Model:
         i = 0
         wrong_preds = {}
         wrong_preds_unknownwords = {}
+        wrong_preds_knownwords = {}
         for line, predicted in zip(lines, predictedTags):
             if len(line) != len(predicted):
                 print("Something wrong", i)
@@ -280,17 +265,16 @@ class Model:
                         else:
                             wrong_preds_unknownwords[(predictedTag,tag)]=1
 
+                    else:
+                        if (predictedTag,tag) in wrong_preds_knownwords:
+                            wrong_preds_knownwords[(predictedTag,tag)].add(word)
+                        else:
+                            wrong_preds_knownwords[(predictedTag,tag)]=set()
+                            wrong_preds_knownwords[(predictedTag,tag)].add(word)
+
 
             i += 1
         
-        wrong_preds = sorted(wrong_preds.items(), key=lambda x : x[1],reverse = True)
-        if self.tag_vocab_count:
-            for k,v in wrong_preds[:5]:
-                if v>1 and k in wrong_preds_unknownwords:
-                    print(k,v,wrong_preds_unknownwords[k])
-                    print("\t",k[0],self.tag_vocab_count[k[0]],k[1],self.tag_vocab_count[k[1]])
-                    print("\t",k[1] ,"in self.open_class_tags : ",k[1] in self.open_class_tags)
-
         print("Accuracy : ", correct/total)
-        print(self.open_class_tags) 
+        # print(self.open_class_tags) 
         return correct/total
